@@ -5,7 +5,7 @@ const PostsView = () => {
   
   const allPosts = useSelector(selectAllPosts)
 
-  const postsContent = posts.map(post => (
+  const postsContent = allPosts.map(post => (
     <article key={post.id}>
       <h3>{post.title}</h3>
       <p>{post.content.substring(0, 100)}</p>
