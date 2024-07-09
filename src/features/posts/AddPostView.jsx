@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { postAdded } from "./postsSlice";
 
 const AddPostView = () => {
   const [post, setPost] = useState({
@@ -6,10 +8,21 @@ const AddPostView = () => {
     content: ''
   });
 
+  const dispatch = useDispatch();
+
   const { title, content } = post;
 
   const changeHandler = (e) => {
     setPost(prevState => {return { ...prevState, [e.target.name]: e.target.value }});
+  }
+
+  const addPost = (e) => {
+    e.preventDefault();
+    dispatch(postAdded(post));
+    setPost({
+      title: '',
+      content: ''
+    });
   }
 
   return (
@@ -21,6 +34,7 @@ const AddPostView = () => {
         
         <label htmlFor="content">Content: </label>
         <input type="text" name='content' value={content} onChange={changeHandler} />
+        <button onClick={}></button>
       </form>
     </section>
   );
