@@ -11,7 +11,13 @@ const AddPostView = () => {
   }
 
   return (
-    <div>AddPostView</div>
+    <section>
+      <h2>Add New Post</h2>
+      <form>
+        <label htmlFor="title">Post Title:</label>
+        <input type="text" name="title" value={post.title} onChange={changeHandler} />
+      </form>
+    </section>
   );
 }
 
