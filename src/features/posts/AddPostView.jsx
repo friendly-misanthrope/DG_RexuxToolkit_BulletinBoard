@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postAdded } from "./postsSlice";
-import { nanoid } from "@reduxjs/toolkit";
 
 const AddPostView = () => {
   const [post, setPost] = useState({
@@ -21,11 +20,7 @@ const AddPostView = () => {
     e.preventDefault();
     if (title && content)
     dispatch(
-      postAdded({
-        id: nanoid(),
-        title,
-        content
-      })
+      postAdded(title, content)
     );
     setPost({
       title: '',
