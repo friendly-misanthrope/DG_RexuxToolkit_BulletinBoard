@@ -11,7 +11,10 @@ const PostsView = () => {
   ))
   
   return (
-    <div>PostsView</div>
+    <section>
+      <h2>Posts</h2>
+      {postsContent}
+    </section>
   );
 }
 
