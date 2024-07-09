@@ -34,7 +34,7 @@ const AddPostView = () => {
         
         <label htmlFor="content">Content: </label>
         <input type="text" name='content' value={content} onChange={changeHandler} />
-        <button onClick={}></button>
+        <button onClick={addPost}></button>
       </form>
     </section>
   );
