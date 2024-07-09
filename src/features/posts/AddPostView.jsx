@@ -6,7 +6,9 @@ const AddPostView = () => {
     content: ''
   });
 
-  
+  const changeHandler = (e) => {
+    setPost(prevState => {return { ...prevState, [e.target.name]: e.target.value }});
+  }
 
   return (
     <div>AddPostView</div>
