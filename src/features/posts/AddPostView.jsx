@@ -18,14 +18,13 @@ const AddPostView = () => {
 
   const addPost = (e) => {
     e.preventDefault();
-    if (title && content)
-    dispatch(
-      postAdded(title, content)
-    );
-    setPost({
-      title: '',
-      content: ''
-    });
+    if (title && content) {
+      dispatch(postAdded(title, content));
+      setPost({
+        title: '',
+        content: ''
+      });
+    }
   }
 
   return (
