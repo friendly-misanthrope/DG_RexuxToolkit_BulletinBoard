@@ -10,10 +10,8 @@ const AddPostView = () => {
     userId: ''
   });
 
-  const dispatch = useDispatch();
-
   const { title, content, userId } = post;
-
+  const dispatch = useDispatch();
   const users = useSelector(selectAllUsers);
 
   const changeHandler = (e) => {
@@ -35,7 +33,9 @@ const AddPostView = () => {
     <option key={user.id} value={user.id}>
       {user.name}
     </option>
-  ))
+  ));
+
+  const isValidPost = Boolean(title) && Boolean(content) && Boolean(userId);
 
   return (
     <section>
@@ -45,7 +45,7 @@ const AddPostView = () => {
         <input type="text" name="title" value={title} onChange={changeHandler} />
         
         <label htmlFor="userId">Select Author</label>
-        <select name="userId" id="userId">
+        <select name="userId" id="userId" onChange={changeHandler}>
           <option value=""></option>
           { usersOptions }
         </select>
@@ -53,7 +53,7 @@ const AddPostView = () => {
         <label htmlFor="content">Content: </label>
         <input type="text" name='content' value={content} onChange={changeHandler} />
 
-        <button onClick={addPost}>Save Post</button>
+        <button type="button" onClick={addPost} disabled={!isValidPost}>Save Post</button>
       </form>
     </section>
   );
