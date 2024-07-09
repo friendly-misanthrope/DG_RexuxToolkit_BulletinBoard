@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { selectAllPosts } from "./postsSlice";
+import AuthorView from "./AuthorView";
 
 const PostsView = () => {
   
@@ -9,6 +10,9 @@ const PostsView = () => {
     <article key={post.id}>
       <h3>{post.title}</h3>
       <p>{post.content.substring(0, 100)}</p>
+      <p className="postCredit">
+        <AuthorView userId={post.userId} />
+      </p>
     </article>
   ))
   

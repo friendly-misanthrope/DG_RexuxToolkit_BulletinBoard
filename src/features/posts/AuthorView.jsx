@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectAllUsers } from "../users/usersSlice";
 
-const AuthorView = () => {
+const AuthorView = ({userId}) => {
   const allUsers = useSelector(selectAllUsers);
   const author = allUsers.find(user => user.id === userId)
 
