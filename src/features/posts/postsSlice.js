@@ -14,7 +14,7 @@ export const postsSlice = createSlice({
   reducers: {
     postAdded: {
       reducer(state, action) {
-        state.push(action.payload);
+        state.posts.push(action.payload);
       },
       prepare(title, content, userId) {
         return {
@@ -37,7 +37,7 @@ export const postsSlice = createSlice({
     },
     reactionAdded(state, action) {
       const { postId, reaction } = action.payload;
-      const post = state.find(post => post.id === postId);
+      const post = state.posts.find(post => post.id === postId);
       if (post) {
         post.reactions[reaction]++;
       }
@@ -45,6 +45,6 @@ export const postsSlice = createSlice({
   }
 });
 
-export const selectAllPosts = (state) => state.posts;
+export const selectAllPosts = (state) => state.posts.posts;
 export const { postAdded, reactionAdded } = postsSlice.actions;
 export default postsSlice.reducer;
