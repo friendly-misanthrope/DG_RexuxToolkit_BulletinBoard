@@ -9,10 +9,12 @@ const initialState = {
   error: null
 }
 
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', () => {
-  return axios.get(POSTS_URL)
-    .then((response) => response.data);
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
+  const response = await axios.get(POSTS_URL);
+  return response.data;
 });
+
+// export const fetchPosts2
 
 export const postsSlice = createSlice({
   name: 'posts',
@@ -47,13 +49,15 @@ export const postsSlice = createSlice({
       if (post) {
         post.reactions[reaction]++;
       }
-    },
-    extraReducers: (builder) => {
-      builder.addCase(fetchUsers.pending, state => {
+    }
+  },
+  extraReducers (builder) {
+    builder
+      .addCase(fetchPosts.pending, state => {
         state.status = 'pending';
-      });
-      builder.addCase(fetchUsers.fulfilled, (state, action) => {
-        state.status = 'fulfilled';
+      })
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = 'fulfilled'
         let min = 1;
         const loadedPosts = action.payload.map(post => {
           post.createdAt = sub(new Date(), { minutes: min++ }).toISOString();
@@ -65,15 +69,14 @@ export const postsSlice = createSlice({
             coffee: 0
           }
           return post;
-        });
+        })
         state.posts = state.posts.concat(loadedPosts)
-      });
-      builder.addCase(fetchUsers.rejected, (state, action) => {
+      })
+      .addCase(fetchPosts.rejected, (state, action) => {
         state.status = 'rejected';
         state.posts = [];
         state.error = action.error.message;
-      });
-    }
+      })
   }
 });
 
