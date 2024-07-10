@@ -1,35 +1,40 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from 'react';
 import { selectAllPosts, getPostsStatus, getPostsError, fetchPosts } from "./postsSlice";
-import AuthorView from "./AuthorView";
-import CreatedAtView from "./CreatedAtView";
-import ReactionButtonsView from "./ReactionButtonsView";
+import PostsExcerptView from "./PostsExcerptView";
+import { isFulfilled } from "@reduxjs/toolkit";
 
 const PostsView = () => {
   
-  const allPosts = useSelector(selectAllPosts)
+  const dispatch = useDispatch();
+  const allPosts = useSelector(selectAllPosts);
+  const postsStatus = useSelector(getPostsStatus);
+  const postsError = useSelector(getPostsError);
+
+  useEffect(() => {
+    if (postsStatus === 'idle') {
+      dispatch(fetchPosts())
+    }
+  },[postsStatus, dispatch])
+  
   const orderedPosts = allPosts.slice().sort((a, b) => 
     b.createdAt.localeCompare(a.createdAt)
   );
 
-  const postsContent = orderedPosts.map(post => (
-    <article key={post.id}>
-      <h3>{post.title}</h3>
-      <p>{post.content.substring(0, 100)}</p>
-      <p className="postCredit">
-        <AuthorView userId={post.userId} />
-        <CreatedAtView timestamp={post.createdAt} />
-      </p>
-      <ReactionButtonsView post={post}/>
-    </article>
-  ))
+  let content;
+
+  if (postsStatus === "pending") {
+    content = <p>Loading...</p>
+  } else if (postsStatus = "fulfilled") {
+    const orderedPosts = allPosts.slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    content = orderedPosts.map((post) => {
+      <PostsExcerptView key={post.id} post={post} />
+    });
+  } else if (postsStatus === 'rejected') {
+    content = <p>{postsError}</p>
+  }
   
-  return (
-    <section>
-      <h2>Posts</h2>
-      {postsContent}
-    </section>
-  );
+  return ({ content });
 }
 
 export default PostsView;
