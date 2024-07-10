@@ -4,7 +4,7 @@ const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
 
 const initialState = {
   posts: [],
-  status: 'idle',
+  status: 'idle', /* idle/pending/fulfilled/rejected */
   error: null
 }
 
@@ -46,6 +46,20 @@ export const postsSlice = createSlice({
       if (post) {
         post.reactions[reaction]++;
       }
+    },
+    extraReducers: (builder) => {
+      builder.addCase(fetchUsers.pending, state => {
+        state.status = 'pending';
+      });
+      builder.addCase(fetchUsers.fulfilled, (state, action) => {
+        state.status = 'fulfilled';
+        state.posts = action.payload;
+      });
+      builder.addCase(fetchUsers.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.posts = [];
+        state.error = action.error.message;
+      });
     }
   }
 });
