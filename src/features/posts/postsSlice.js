@@ -66,6 +66,7 @@ export const postsSlice = createSlice({
           }
           return post;
         });
+        state.posts = state.posts.concat(loadedPosts)
       });
       builder.addCase(fetchUsers.rejected, (state, action) => {
         state.status = 'rejected';
