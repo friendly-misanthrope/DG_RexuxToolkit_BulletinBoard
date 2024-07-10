@@ -3,7 +3,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import { sub } from 'date-fns';
 
 const initialState = [
-  { 
+  {
     id: '1',
     title: 'Learning Redux Toolkit',
     content: "I've heard good things!",
@@ -46,7 +46,14 @@ export const postsSlice = createSlice({
             title,
             content,
             createdAt: new Date().toISOString(),
-            userId
+            userId,
+            reactions: {
+              thumbsUp: 0,
+              wow: 0,
+              heart: 0,
+              rocket: 0,
+              coffee: 0
+            }
           }
         }
       }
