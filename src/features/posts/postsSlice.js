@@ -24,12 +24,12 @@ export const postsSlice = createSlice({
       reducer(state, action) {
         state.posts.push(action.payload);
       },
-      prepare(title, content, userId) {
+      prepare(title, body, userId) {
         return {
           payload: {
             id: nanoid(),
             title,
-            content,
+            body,
             createdAt: new Date().toISOString(),
             userId,
             reactions: {

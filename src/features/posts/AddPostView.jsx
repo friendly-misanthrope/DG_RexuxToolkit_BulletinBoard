@@ -6,11 +6,11 @@ import { selectAllUsers } from "../users/usersSlice";
 const AddPostView = () => {
   const [post, setPost] = useState({
     title: '',
-    content: '',
+    body: '',
     userId: ''
   });
 
-  const { title, content, userId } = post;
+  const { title, body, userId } = post;
   const dispatch = useDispatch();
   const users = useSelector(selectAllUsers);
 
@@ -20,11 +20,11 @@ const AddPostView = () => {
 
   const addPost = (e) => {
     e.preventDefault();
-    if (title && content) {
-      dispatch(postAdded(title, content, userId));
+    if (title && body) {
+      dispatch(postAdded(title, body, userId));
       setPost({
         title: '',
-        content: '',
+        body: '',
         userId: ''
       });
     }
@@ -36,7 +36,7 @@ const AddPostView = () => {
     </option>
   ));
 
-  const isValidPost = Boolean(title) && Boolean(content) && Boolean(userId);
+  const isValidPost = Boolean(title) && Boolean(body) && Boolean(userId);
 
   return (
     <section>
@@ -51,8 +51,8 @@ const AddPostView = () => {
           { usersOptions }
         </select>
 
-        <label htmlFor="content">Content: </label>
-        <input type="text" name='content' value={content} onChange={changeHandler} />
+        <label htmlFor="body">Post Content: </label>
+        <input type="text" name='body' value={body} onChange={changeHandler} />
 
         <button type="button" onClick={addPost} disabled={!isValidPost}>Save Post</button>
       </form>
