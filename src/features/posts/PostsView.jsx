@@ -6,8 +6,11 @@ import CreatedAtView from "./CreatedAtView";
 const PostsView = () => {
   
   const allPosts = useSelector(selectAllPosts)
+  const orderedPosts = allPosts.slice().sort((a, b) => 
+    b.createdAt.localeCompare(a.createdAt)
+  );
 
-  const postsContent = allPosts.map(post => (
+  const postsContent = orderedPosts.map(post => (
     <article key={post.id}>
       <h3>{post.title}</h3>
       <p>{post.content.substring(0, 100)}</p>
