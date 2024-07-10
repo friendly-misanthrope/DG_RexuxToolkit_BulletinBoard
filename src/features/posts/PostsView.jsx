@@ -1,5 +1,6 @@
-import { useSelector } from "react-redux";
-import { selectAllPosts } from "./postsSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from 'react';
+import { selectAllPosts, getPostsStatus, getPostsError, fetchPosts } from "./postsSlice";
 import AuthorView from "./AuthorView";
 import CreatedAtView from "./CreatedAtView";
 import ReactionButtonsView from "./ReactionButtonsView";
