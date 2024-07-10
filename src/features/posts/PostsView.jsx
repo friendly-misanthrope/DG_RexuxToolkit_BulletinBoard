@@ -32,7 +32,7 @@ const PostsView = () => {
   return (
     <section>
       <h2>Posts:</h2>
-      <article> {content} </article>
+      {content}
     </section>
   );
 }
