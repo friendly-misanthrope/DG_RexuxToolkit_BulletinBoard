@@ -1,11 +1,17 @@
 import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
 
 const initialState = {
   posts: [],
   status: 'idle',
   error: null
 }
+
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', () => {
+  return axios.get(POSTS_URL)
+    .then((response) => response.data);
+});
 
 export const postsSlice = createSlice({
   name: 'posts',
