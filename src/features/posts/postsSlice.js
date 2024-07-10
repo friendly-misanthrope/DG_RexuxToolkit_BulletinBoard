@@ -57,6 +57,13 @@ export const postsSlice = createSlice({
           }
         }
       }
+    },
+    reactionAdded(state, action) {
+      const { postId, reaction } = action.payload;
+      const post = state.find(post => post.id === postId);
+      if (post) {
+        post.reactions[reaction]++;
+      }
     }
   }
 });
