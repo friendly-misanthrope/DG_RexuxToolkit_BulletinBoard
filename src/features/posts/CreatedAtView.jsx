@@ -9,7 +9,7 @@ const CreatedAtView = ({timestamp}) => {
   }
 
   return (
-    <span title={timestamp}>
+    <span title={parseISO(timestamp)}>
       &nbsp; <i>{createdAt}</i>
     </span>
   );
