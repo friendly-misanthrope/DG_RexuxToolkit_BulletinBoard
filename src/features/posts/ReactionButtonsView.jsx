@@ -10,21 +10,26 @@ const ReactionButtonsView = ({ post }) => {
     coffee: '☕'
   }
 
+  const dispatch = useDispatch();
+
   const emojiClickHandler = (e) => {
     e.preventDefault();
-    dispatch(reactionAdded({ postId: post.id, reaction: name }))
+    dispatch(reactionAdded({ postId: post.id, reaction: name }));
   }
 
-  return (
-    <button
-      key={name}
-      type="button"
-      className="reactionButton"
-      onClick={emojiClickHandler}
-    >
-
-    </button>
-  );
+  const reactionButtons = Object.entries(reactionEmojis).map(([name, emoji]) => {
+    return (
+      <button
+        key={name}
+        type="button"
+        className="reactionButton"
+        onClick={emojiClickHandler}
+      >
+      {emoji} {post.reactions[name]}
+      </button>
+    );
+  });
+  return <div>{reactionButtons}</div>
 }
 
 export default ReactionButtonsView;
