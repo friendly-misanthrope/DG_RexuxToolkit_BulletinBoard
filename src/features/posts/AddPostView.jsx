@@ -24,7 +24,8 @@ const AddPostView = () => {
       dispatch(postAdded(title, content, userId));
       setPost({
         title: '',
-        content: ''
+        content: '',
+        userId: ''
       });
     }
   }
