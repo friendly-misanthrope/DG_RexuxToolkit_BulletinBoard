@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { reactionAdded } from "./postsSlice";
 
-const ReactionButtonsView = () => {
+const ReactionButtonsView = ({ post }) => {
   const reactionEmojis = {
     thumbsUp: '👍',
     wow: '😮',
@@ -9,9 +9,22 @@ const ReactionButtonsView = () => {
     rocket: '🚀',
     coffee: '☕'
   }
+
+  const emojiClickHandler = (e) => {
+    e.preventDefault();
+    dispatch(reactionAdded({ postId: post.id, reaction: name }))
+  }
+
   return (
-    <div>ReactionButtonsView</div>
-  )
+    <button
+      key={name}
+      type="button"
+      className="reactionButton"
+      onClick={emojiClickHandler}
+    >
+
+    </button>
+  );
 }
 
-export default ReactionButtonsView
+export default ReactionButtonsView;
