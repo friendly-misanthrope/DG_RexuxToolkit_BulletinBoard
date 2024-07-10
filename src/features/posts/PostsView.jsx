@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectAllPosts } from "./postsSlice";
 import AuthorView from "./AuthorView";
+import CreatedAtView from "./CreatedAtView";
 
 const PostsView = () => {
   
@@ -12,6 +13,7 @@ const PostsView = () => {
       <p>{post.content.substring(0, 100)}</p>
       <p className="postCredit">
         <AuthorView userId={post.userId} />
+        <CreatedAtView timestamp={post.createdAt} />
       </p>
     </article>
   ))
