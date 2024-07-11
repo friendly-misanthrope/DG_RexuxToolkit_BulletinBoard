@@ -5,7 +5,7 @@ const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
 
 const initialState = {
   posts: [],
-  status: 'idle', /* idle/pending/fulfilled/rejected */
+  status: 'idle',
   error: null
 }
 
@@ -13,8 +13,6 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   const response = await axios.get(POSTS_URL);
   return response.data;
 });
-
-// export const fetchPosts2
 
 export const postsSlice = createSlice({
   name: 'posts',
