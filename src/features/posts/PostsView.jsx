@@ -20,7 +20,8 @@ const PostsView = () => {
   let content;
 
   if (postsStatus === "pending") {
-    content = <div className="loader">
+    content = 
+    <div className="loader">
       <p>Content Loading...</p>
       <span>
         <ClipLoader color="#00d1ff" />
