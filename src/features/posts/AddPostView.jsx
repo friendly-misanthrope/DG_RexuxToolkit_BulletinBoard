@@ -11,8 +11,10 @@ const AddPostView = () => {
   });
 
   const [newPostSubmitStatus, setNewPostSubmitStatus] = useState('idle')
-
   const { title, body, userId } = post;
+  const isValidPost = [title, body, userId].every(Boolean) && newPostSubmitStatus === 'idle';
+
+  
   const dispatch = useDispatch();
   const users = useSelector(selectAllUsers);
 
@@ -22,13 +24,20 @@ const AddPostView = () => {
 
   const addPost = (e) => {
     e.preventDefault();
-    if (title && body) {
-      dispatch(addNewPost(title, body, userId));
-      setPost({
-        title: '',
-        body: '',
-        userId: ''
-      });
+    try {
+      if (isValidPost) {
+        setNewPostSubmitStatus('pending');
+        dispatch(addNewPost({title, body, userId})).unwrap();
+        setPost({
+          title: '',
+          body: '',
+          userId: ''
+        });
+      }
+    } catch(e) {
+      console.error('Failed to save post', e)
+    } finally {
+      setNewPostSubmitStatus('idle')
     }
   }
 
@@ -38,7 +47,7 @@ const AddPostView = () => {
     </option>
   ));
 
-  const isValidPost = Boolean(title) && Boolean(body) && Boolean(userId);
+  
 
   return (
     <section>
