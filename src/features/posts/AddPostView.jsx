@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postAdded } from "./postsSlice";
+import { addNewPost } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 
 const AddPostView = () => {
@@ -9,6 +9,8 @@ const AddPostView = () => {
     body: '',
     userId: ''
   });
+
+  const [newPostSubmitStatus, setNewPostSubmitStatus] = useState('idle')
 
   const { title, body, userId } = post;
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ const AddPostView = () => {
   const addPost = (e) => {
     e.preventDefault();
     if (title && body) {
-      dispatch(postAdded(title, body, userId));
+      dispatch(addNewPost(title, body, userId));
       setPost({
         title: '',
         body: '',
